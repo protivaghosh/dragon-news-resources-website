@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLoaderData, useParams } from 'react-router';
+import NewsCard from '../NewsCard';
 
 const CategoryNews = () => {
     const {id} = useParams();
@@ -14,7 +15,7 @@ const CategoryNews = () => {
            const filterNews= data.filter((news) => news.others.is_today_pick == true);
            setCategoriesNews(filterNews);
         }else{
-           const filterNews= data.filter((news) => news.category_id == id);
+           const filterNews= data.filter((news) => news.category_id === parseInt(id));
       console.log(filterNews)
       setCategoriesNews(filterNews);
         }
@@ -24,7 +25,12 @@ const CategoryNews = () => {
        
     return (
         <div>
-            category{categoriesNews.length}
+            <h2 className='font-bold'>Dragon News Home</h2>
+            <div className='grid grid-cols-1 mt-5'>
+              {
+                categoriesNews.map(news => <NewsCard key={news.id} news={news}></NewsCard>)
+              }
+            </div>
         </div>
     );
 };
